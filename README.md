@@ -1,2 +1,2 @@
 # Sonda_Communication
-TCP communicaction for a sonda of a research proyect 
+TCP communicaction for a multiparametric probe of a research proyect 
