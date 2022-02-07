@@ -23,7 +23,7 @@ class sonda{
     std::string sendBuf;
     char recvBuf[MAXSIZE];
     std::string newLine="\n";
-
+    bool Save=false;
     public:
     //thread functions
     void startSendThread();//start thread
@@ -36,11 +36,12 @@ class sonda{
 
     //communication functions
     void ReciveCommunication();
-    void DataCsv(std::string name,int year,int month,int day);
+    void DataCsv(std::string name,std::string year,std::string month,std::string day);
     void TaskConfiguration(int numTask,std::string type,int period,int record);
     void CreateTask();
     void taskExecute(int n);
     void Time();
+    void saveData();
     //constructor and desctructor
     sonda();
     ~sonda();

@@ -9,8 +9,8 @@ sonda::sonda(){//constructor
 	//pthread_setschedprio(_thread, SCHED_FIFO); // setting priority
     log = fopen("sensordata.txt", "w");
 
-    const char *ip = "127.0.0.1";//ip of server
-	unsigned short int port = atoi("8080");//port of server
+    const char *ip = "8.8.8.8";//ip of server
+	unsigned short int port = atoi("800");//port of server
 
 	socketSonda = socket(AF_INET,SOCK_STREAM,0);
 	if(socketSonda == -1){
@@ -63,9 +63,13 @@ void sonda::recvFunc(){
 			}
 			time_t timep;
 			time(&timep);//timeStamp
-            
-            std::cout<<ctime(&timep)<<std::endl;//
-			std::cout<<recvBuf<<std::endl;
+            if(Save){
+                fwrite (recvBuf , sizeof(char), sizeof(recvBuf), log);
+            }
+            else{
+                //std::cout<<ctime(&timep)<<std::endl;//
+                std::cout<<recvBuf<<std::endl;
+            }
 			
 		}
 
@@ -124,11 +128,17 @@ void sonda::Time(){//function for set Time
 	std::string stime="Time ";		
     sendBuf= stime + std::to_string(time(&timep)) +  newLine;
 }
-void sonda::DataCsv(std::string name,int year,int month,int day){//function for request data and store in a file
+void sonda::DataCsv(std::string name,std::string year,std::string month,std::string day){//function for request data and store in a file
     std::string data="Data";
     std::string space=" ";
-    sendBuf=data + space + name + space + std::to_string(year)+ space + 
-            std::to_string(month) + space + std::to_string(day)+ newLine;
+    std::string bar="_";
+    std::string csv=".csv";
+    Save=true;
+    sendBuf=data + space + name + bar + year + 
+            month +  day + csv +newLine;
+}
+void sonda::saveData(){
+    fclose (log);
 }
 sonda::~sonda(){
 
