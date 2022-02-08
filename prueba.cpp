@@ -17,9 +17,11 @@ int main(){
       /* usleep(100);
         sonda1.Time();
         usleep(100);*/
-        sonda1.DataCsv("prueba2","22","01","31");
+        sonda1.DataCsv("prueba2","22","02","08");
         cout<<"datosGuardados"<<endl;
-        sleep(100);
+        while(true){
+
+        }
 
     
 
